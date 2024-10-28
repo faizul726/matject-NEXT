@@ -3,14 +3,20 @@ setlocal enabledelayedexpansion
 
 set "gamelocation=%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang"
 
+echo [93m[*] Monitoring resource packs...[0m
+echo.
+
 :monitor
-for /f %%z in ('forfiles /p %gamelocation%\minecraftpe /m global_resource_packs.json /c "cmd /c echo @fdate_@ftime"') do set "modifytime=%%z"
+for /f %%z in ('forfiles /p %gamelocation%\minecraftpe /m global_resource_packs.json /c "cmd /c echo @fdate__@ftime"') do set "modifytime=%%z"
 if defined modtime (
     if !modtime! neq !modifytime! (
-        echo File is modified. New time is !modifytime!
+        echo.
+        echo [93m^> Resource packs changed ^(!modifytime!^)[0m
         set "modtime=!modifytime!"
         call parsePackName
-    ) else echo File is not modified. ^(!modtime!^)
+        echo.
+        goto monitor
+    ) else echo ^> No change detected ^(!modtime!^)
     timeout 5 > NUL
     goto monitor
 )
