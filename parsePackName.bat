@@ -7,7 +7,7 @@ for /d %%D in ("%gamelocation%\resource_packs\*") do (
                 set "packuuid=%%j"
                 if "!packuuid!"=="%uuid%" (
                     echo [92mNewly activated first pack is: !packName![0m
-                    goto loop
+                    goto monitor
                 )
             )
         )
