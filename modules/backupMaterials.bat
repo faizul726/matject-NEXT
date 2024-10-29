@@ -1,0 +1,1 @@
+xcopy "!MCLOCATION!\data\renderer\materials" "materials.bak" /e /i /h /y

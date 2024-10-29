@@ -1,4 +1,10 @@
-## v0.1.6
+## v0.1.7 (20231029)
+- Add fully baked Matject stuff
+- No proper error detection yet
+- Still many critical parts missing from Matject
+- Good night
+
+## v0.1.6 (20231029)
 - Add half baked Matject stuff
 - VERY INCOMPLETE
 

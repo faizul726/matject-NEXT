@@ -17,6 +17,8 @@ set "ERR=[41;97m"
 
 set "gamelocation=%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang"
 
+call "modules\getMinecraftLocation"
+if not exist "materials.bak\" call "modules\backupMaterials"
 call "modules\cachePacks"
 
 timeout 2 > NUL
@@ -46,7 +48,14 @@ if defined modtime (
         set "modtime=!modifytime!"
         call "modules\parsePackWithCache"
         echo.
-        call "modules\injector"
+        if !uuid! equ null (
+            echo !RED![^^!] No pack enabled...!RST!
+            if exist ".settings\.bins.log" (
+                call "modules\restoreMaterials"
+                )
+            goto monitor
+        )
+        call "modules\listMaterials"
         goto monitor
     )
     ::else echo ^> No change detected ^(!modtime!^)
