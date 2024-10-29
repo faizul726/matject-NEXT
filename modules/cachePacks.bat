@@ -8,9 +8,8 @@ for /d %%D in ("%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\Loc
                 set /a counter+=1
                 set "packuuid=%%j"
                 set "%%j=%%D"
-                echo [92m!counter!. !packName![0m
+                echo !counter!. !packName!
             )
-            echo.
         )
     )
 )
@@ -19,5 +18,6 @@ for /d %%D in ("%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\Loc
 ::echo.
 ::set 
 echo.
-echo [93m[*] Listing DONE^^![0m
+echo [93m[*] Caching OK[0m
+echo.
 echo.

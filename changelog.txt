@@ -1,0 +1,23 @@
+## v0.1.6
+- Add half baked Matject stuff
+- VERY INCOMPLETE
+
+## v0.1.5 (20231029)
+- Deprecate old parse loop w/ speed improvement
+- Migrate to cache parsing for getting pack details
+
+## v0.1.4 (20231029)
+- Add pack caching
+
+## v0.1.3 (20241029)
+- Add subpack parser
+
+## v0.1.2 (20241028)
+- Improve parsing speed
+- Add colors
+
+## v0.1.1 (20241028)
+- Fix pack parser
+
+## v0.1.0 (20241028)
+- Initial release
