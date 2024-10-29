@@ -1,2 +1,2 @@
-# matject-NEXT
-Experimental, fully automated version of Matject. Work in progress!
+# matjectNEXT
+Experimental, fully automated version of Matject. (work in progress)
