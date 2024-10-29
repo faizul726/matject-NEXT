@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set "title=matjectNEXT v0.1.6"
+set "title=matjectNEXT v0.1.7"
 title %title%
 cd %~dp0
 :: COLORS
