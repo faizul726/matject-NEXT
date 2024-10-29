@@ -1,6 +1,4 @@
-@echo off
-setlocal enabledelayedexpansion
-echo [93m[*] Listing resource_packs...[0m
+echo [93m[*] Caching resource packs...[0m
 echo.
 for /d %%D in ("%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\resource_packs\*") do (
     if exist "%%D\manifest.json" (
@@ -9,9 +7,8 @@ for /d %%D in ("%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\Loc
             for /f "delims=" %%j in ('jq -r ".header.uuid" "%%D\manifest.json"') do (
                 set /a counter+=1
                 set "packuuid=%%j"
-                set "!packuuid!=!packName!"
+                set "%%j=%%D"
                 echo [92m!counter!. !packName![0m
-                echo !packuuid!
             )
             echo.
         )
@@ -23,5 +20,4 @@ for /d %%D in ("%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\Loc
 ::set 
 echo.
 echo [93m[*] Listing DONE^^![0m
-
-endlocal
+echo.

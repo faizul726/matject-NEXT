@@ -6,6 +6,8 @@ set "gamelocation=%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\L
 echo [93m[*] Monitoring resource packs...[0m (cooldown 5s)
 echo.
 
+call cachePacks
+
 :monitor
 for /f %%z in ('forfiles /p %gamelocation%\minecraftpe /m global_resource_packs.json /c "cmd /c echo @fdate__@ftime"') do set "modifytime=%%z"
 if defined modtime (
@@ -13,8 +15,9 @@ if defined modtime (
         echo.
         echo [93m^> Resource packs changed ^(!modifytime!^)[0m
         set "modtime=!modifytime!"
-        call parsePackName
+        call parsePackWithCache
         echo.
+        call injector
         goto monitor
     ) else echo ^> No change detected ^(!modtime!^)
     timeout 5 > NUL
