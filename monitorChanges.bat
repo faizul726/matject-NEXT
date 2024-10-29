@@ -1,9 +1,9 @@
 @echo off
 setlocal enabledelayedexpansion
-
+title matjectNEXT (Watcher mode)
 set "gamelocation=%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang"
 
-echo [93m[*] Monitoring resource packs...[0m
+echo [93m[*] Monitoring resource packs...[0m (cooldown 5s)
 echo.
 
 :monitor
