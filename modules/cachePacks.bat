@@ -6,9 +6,13 @@ for /d %%D in ("%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\Loc
             set "packName=%%i"
             for /f "delims=" %%j in ('jq -r ".header.uuid" "%%D\manifest.json"') do (
                 set /a counter+=1
-                set "packuuid=%%j"
+
+                if defined %%j (
+                    echo !counter!. !packName! !RED![DUPLICATE]!RST!
+                    ) else (
+                        echo !counter!. !packName!
+                        )
                 set "%%j=%%D"
-                echo !counter!. !packName!
             )
         )
     )

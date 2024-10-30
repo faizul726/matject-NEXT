@@ -1,3 +1,6 @@
+## v0.1.8 (20231030)
+- Add duplicate UUID detection (first implementation, so pushing)
+
 ## v0.1.7 (20231029)
 - Add fully baked Matject stuff
 - No proper error detection yet
