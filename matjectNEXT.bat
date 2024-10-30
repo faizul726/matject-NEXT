@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set "title=matjectNEXT v0.1.8"
+set "title=matjectNEXT v0.1.9"
 title %title%
 cd %~dp0
 :: COLORS
@@ -22,6 +22,7 @@ if not exist "materials.bak\" call "modules\backupMaterials"
 call "modules\cachePacks"
 
 timeout 2 > NUL
+goto monitorstart
 cls
 echo !YLW![?] Which method would you like to try?
 echo.
@@ -34,12 +35,26 @@ echo Injects the top most pack and closes
 echo.
 choice /c 12 /n
 if !errorlevel! neq 1 (echo BOO^^! this is still work in progress && pause && goto:EOF)
+:monitorstart
 cls
 title %title% (Watcher mode)
+
+if exist "%gamelocation%\minecraftpe\global_resource_packs.json" (
+    echo To prevent problems matjectNEXT needs to start fresh by deleting "global_resource_packs.json".
+    echo Which will reset activated resource packs ^(not delete resource packs^)
+    echo.
+    echo !YLW![?] Do you want to reset resource packs? [Y/N]!RST!
+    echo.
+    choice /c yn /n
+    if !errorlevel! neq 1 goto:EOF
+    del /q /s "%gamelocation%\minecraftpe\global_resource_packs.json"
+)
+
 echo [93m[*] Monitoring resource packs...[0m (cooldown 5s)
 echo.
 
 :monitor
+if not exist "%gamelocation%\minecraftpe\global_resource_packs.json" echo [] > "%gamelocation%\minecraftpe\global_resource_packs.json"
 for /f %%z in ('forfiles /p %gamelocation%\minecraftpe /m global_resource_packs.json /c "cmd /c echo @fdate__@ftime"') do set "modifytime=%%z"
 if defined modtime (
     if !modtime! neq !modifytime! (
@@ -48,17 +63,22 @@ if defined modtime (
         set "modtime=!modifytime!"
         call "modules\parsePackWithCache"
         echo.
-        if !uuid! equ null (
-            echo !RED![^^!] No pack enabled...!RST!
-            if exist ".settings\.bins.log" (
-                call "modules\restoreMaterials"
-                )
+        if !packUuid! equ null (
+            echo !RED![^^!] No pack is enabled, restoring to default...!RST!
+            call "modules\restoreMaterials"
             goto monitor
-        )
-        call "modules\listMaterials"
-        goto monitor
-    )
-    ::else echo ^> No change detected ^(!modtime!^)
+        ) else (
+            if not exist "!packPath!\renderer\" (
+                echo !RED![^^!] Not a shader, restoring to default...!RST!
+                call "modules\restoreMaterials"
+                ) else (
+                    if !hasSubpack! equ true call "modules\parseSubpack"
+                    call "modules\listMaterials"
+                    call "modules\injectMaterials"
+                    goto monitor
+                    )
+                )
+            )
     timeout 5 > NUL
     goto monitor
 )

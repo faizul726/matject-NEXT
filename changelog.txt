@@ -1,3 +1,10 @@
+## v0.1.9 (20231030)
+- Add version parser
+- Add global_resource_packs.json delete prompt
+- Remove remnants, unused code
+- Improve duplicate UUID detection speed
+- Move (most) calls to matjectNEXT.bat
+
 ## v0.1.8 (20231030)
 - Add duplicate UUID detection (first implementation, so pushing)
 
