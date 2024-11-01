@@ -1,10 +1,12 @@
 if not defined murgi echo [41;97mYou can't open me directly[0m :P & cmd /k
 
-set "gameLocation=%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang"
+echo !YLW![*] Syncing with current global resource packs...!RST!
+echo.
+
 for /f "delims=" %%i in ('jq -r ".[0].pack_id" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "packUuid=%%i"
 
 if "!packUuid!" equ "null" (
-    echo !YLW! [*] No packs enabled.
+    echo !YLW![*] No packs enabled.!RST!
     echo.
     goto nopacks
 )

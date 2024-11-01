@@ -1,4 +1,9 @@
-## v0.2.1
+## v0.2.2 (20241101)
+- Add sync message
+- Some typos
+- Fix pack parsing again 
+
+## v0.2.1 (20241101)
 - Fix current pack parsing
 
 ## v0.2.0 (20241101)

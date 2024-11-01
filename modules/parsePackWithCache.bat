@@ -20,14 +20,7 @@ if "!hasSubpack!" equ "true" (
     set "cPack=!packName!_!packVer!"
 )
 
-
-if not defined lPack goto:EOF
-
 set "cPack=%cPack: =%"
-
-    ::secho Applied pack: !cPack!
-    ::secho Loaded pack: !lPack!
-    ::spause
 
 if "!cPack!" equ "!lPack!" (
     echo !YLW![*] Top most pack unchanged, skipping injection...!RST!
