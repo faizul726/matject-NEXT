@@ -1,3 +1,6 @@
+## v0.2.1
+- Fix current pack parsing
+
 ## v0.2.0 (20241101)
 - First test release
 - Add module verification
@@ -12,7 +15,6 @@
 - No proper error detection, missing unlockWindowsApps and some Matject things
 - Interruption/power loss detection doesn't work properly yet
 - Very unoptimized, but if it works, don't touch it (will optimize slowly later)
-
 
 ## v0.1.9 (20241030)
 - Add version parser
