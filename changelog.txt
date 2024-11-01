@@ -1,28 +1,44 @@
-## v0.1.9 (20231030)
+## v0.2.0 (20241101)
+- First test release
+- Add module verification
+- Add first run message
+- Add material syncing for consistency
+- Detect if top pack is unchanged, if so skip injection
+- Updated start screen with options
+- Remove global_resource_packs.json delete prompt as it works fine after syncing
+- Add material-updater support + downloader
+- Settings now work as expected
+- Still missing a lot of info messages
+- No proper error detection, missing unlockWindowsApps and some Matject things
+- Interruption/power loss detection doesn't work properly yet
+- Very unoptimized, but if it works, don't touch it (will optimize slowly later)
+
+
+## v0.1.9 (20241030)
 - Add version parser
 - Add global_resource_packs.json delete prompt
 - Remove remnants, unused code
 - Improve duplicate UUID detection speed
 - Move (most) calls to matjectNEXT.bat
 
-## v0.1.8 (20231030)
+## v0.1.8 (20241030)
 - Add duplicate UUID detection (first implementation, so pushing)
 
-## v0.1.7 (20231029)
+## v0.1.7 (20241029)
 - Add fully baked Matject stuff
 - No proper error detection yet
 - Still many critical parts missing from Matject
 - Good night
 
-## v0.1.6 (20231029)
+## v0.1.6 (20241029)
 - Add half baked Matject stuff
 - VERY INCOMPLETE
 
-## v0.1.5 (20231029)
+## v0.1.5 (20241029)
 - Deprecate old parse loop w/ speed improvement
 - Migrate to cache parsing for getting pack details
 
-## v0.1.4 (20231029)
+## v0.1.4 (20241029)
 - Add pack caching
 
 ## v0.1.3 (20241029)

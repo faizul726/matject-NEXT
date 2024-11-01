@@ -1,3 +1,12 @@
+@echo off
+if not defined murgi echo [41;97mYou can't open me directly[0m :P & cmd /k
+
+:list
+set SRCCOUNT=
+set SRCLIST=
+set REPLACELIST=
+set BINS=
+
 copy "!packPath!\renderer\materials\*.bin" "%cd%\MATERIALS\"
 if !hasSubpack! equ true copy "!packPath!\subpacks\!subpackName!\renderer\materials\*.bin" "%cd%\MATERIALS"
 
@@ -14,3 +23,5 @@ for %%f in (MATERIALS\*) do (
 
 set "SRCLIST=%SRCLIST:~1%"
 set "REPLACELIST=%REPLACELIST:~1%"
+
+goto:EOF
