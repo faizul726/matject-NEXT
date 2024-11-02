@@ -19,7 +19,7 @@ echo hasSubRP???=!hasSubpack!
 pause
 
 
-
+if not exist "MATERIALS" echo mkdir MATERIALS -,- && mkdir MATERIALS
 copy "!packPath!\renderer\materials\*.bin" "%cd%\MATERIALS\"
 if "!hasSubpack!" equ "true" copy "!packPath!\subpacks\!subpackName!\renderer\materials\*.bin" "%cd%\MATERIALS"
 
@@ -30,8 +30,6 @@ set SRCCOUNT=
 
 echo TWICE -^> srccount=!SRCCOUNT!, srclist=!SRCLIST!, replacelist=!REPLACELIST!, bins=!BINS!
 pause 
-
-if not exist "MATERIALS" echo mkdir MATERIALS -,- && mkdir MATERIALS
 
 for %%f in (MATERIALS\*) do (
     set SRCLIST=!SRCLIST!,"%cd%\%%f"
