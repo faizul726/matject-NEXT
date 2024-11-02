@@ -1,6 +1,9 @@
 @echo off
 if not defined murgi echo [41;97mYou can't open me directly[0m :P & cmd /k
 
+echo Loaded colors
+pause
+
 set "GRY=[90m"
 set "RED=[91m"
 set "GRN=[92m"

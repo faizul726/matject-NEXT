@@ -1,3 +1,8 @@
+## v0.2.3 (20241102)
+- Add .settings creation
+- Add MATERIALS creation
+- Add debug info
+
 ## v0.2.2 (20241101)
 - Add sync message
 - Some typos

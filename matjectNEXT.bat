@@ -29,7 +29,7 @@ set useManualAlways=".settings\useManualAlways"
 :: MODULE VERIFICATION
 set "hash=9909ECFBCA81E2F26905E9D3B68D7F0C0A1926C4705F288EE16C32F3C318DAD7D680C932B8F4C9C196573207C549DC357F95CE3E294F0AD4EE845BD4FB091147651C8D5C85D0874C536684405FA1225ED3C11A356798FDF4199FF3A4976471D20AC61EACE9CB0FFB5247A159CC6B9E3176057288BC6E78CD288E898BE9596B77A7DE1C33F88530F1A5518B652696F9EA27A67BFCDC7C3C6491EB4EEA727C83CD49696FB278D79A5193C01E8383ECBAB26F9B540ECC8F10F9B7D244B5587F6B66E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B8557A86F4E7403CCE0162B68015A44472A3FF01C7C95DEAEB1C6E9B95706925A509F267EFC30FA794D690A3BE8464B4EE33102241D086A3F8AD5E6DCCD9D01B93307AD79F8A70774978BD3C0D95D471DA24D73C80311EE5E14908A8FDA313D2B42B13552B0E9AA75E1015E8D9A76F9C904D316B7C6682113E8BB1BD2A7A7A268CB1D8FAB30F15A90E87E466646802C0C553A4BAB164AE979E0A4C598A908D0669E7D3017E3BED1BAA56EC3C0E70A3B65EEE67F0BDEC684583C8A241EDA8467AF9637AB4B05E1E0D9BA4B637A9A1B5783B67A5D5EA03579ABFBE5EFF6A7399AED3517181995FFF7402F170DD361CC6960CE0E7FDA06CBC507A85BD2900835ACE9AE79AC44003629BF83629BF5C1D213A71135352C485EB69AFE7E59AED7DA66FAEA7"
 
-if not exist %disableModuleVerification% (
+if exist %disableModuleVerification% (
     echo [93m[*] Verifying modules...[0m
     echo.
 
@@ -66,6 +66,9 @@ call "modules\colors"
 
 
 :: FIRST RUN
+
+if not exist ".settings" mkdir .settings
+
 if exist %ranOnce% goto loadModules
 
 echo !WHT!Welcome to %title%^^!!RST! ^(for the very first time^)
@@ -111,7 +114,7 @@ if not exist "materials.bak\" (
 )
 call "modules\cachePacks"
 
-timeout 2 > NUL
+timeout 2
 
 cls
 
@@ -129,10 +132,15 @@ if not exist %disableInterruptionCheck% (
 )
 
 if not exist "%gameLocation%\minecraftpe\global_resource_packs.json" (
+    echo !ERR!global_resource_packs.json not found.!RST!
     echo [] > "%gameLocation%\minecraftpe\global_resource_packs.json"
 )
 
+echo calling syncMaterials
+pause
 call "modules\syncMaterials"
+echo end syncMaterials
+pause
 
 if exist %useAutoAlways% (
     set mode=1
@@ -165,6 +173,8 @@ goto option-!mode!
 
 :: HOMEPAGE
 :start
+echo LABEL START 
+pause
 cls
 echo !WHT!Welcome to %title%^^!!RST!
 echo.
@@ -186,26 +196,37 @@ echo.
 
 choice /c 12hsab /n
 
+echo going option-!errorlevel!
 goto option-!errorlevel!
 
 
 
 :: EXIT
 :option-6
+echo pause
+pause
 exit
 
 
 
 :: ABOUT
 :option-5
+echo calling about
+pause
 call "modules\about"
+echo end about
+pause
 goto start
 
 
 
 :: SETTINGS
 :option-4
+echo calling settings
+pause
 call "modules\settings"
+echo end settings
+pause
 title %title%
 goto start
 
@@ -213,6 +234,8 @@ goto start
 
 :: HELP
 :option-3
+echo calling help
+pause
 call "modules\help"
 goto start
 
@@ -244,23 +267,44 @@ echo !YLW![*] Monitoring resource packs...!RST! (cooldown 5s)
 echo.
 
 for /f "delims=" %%i in ('jq -r ".[0].pack_id" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "packUuid=%%i"
+
+echo PACKUUID !packUuid!
+
 if "!packUuid!" equ "null" (
-    set "lPack=rwxrw-r"
+    echo uuid NULL
+    set "lPack=rwxrw-r--"
     goto monitor
 )
+
+echo lPack=!lPack!
+
 for /f "delims=" %%a in ('jq -cr ".[0].version | join(\"\")" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set packVer=%%a
+
+echo PACKVER=!packVer!
+
 for /f "delims=" %%j in ('jq ".[0] | has(\"subpack\")" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "hasSubpack=%%j"
+
+echo hasSubpack=!hasSubpack!
 if "!hasSubpack!" equ "true" for /f "delims=" %%i in ('jq -r ".[0].subpack" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "subpackName=%%i"
 
+echo SUBPACKNAME=!subpackName!
+
 if "!hasSubpack!" equ "true" (
+    echo IF
     set "lPack=!packName!_!packVer!_!subpackName!"
 ) else (
+    echo ELSE
     set "lPack=!packName!_!packVer!"
 )
 
+echo LPACK=!lpack!
+
 set "lPack=%lPack: =%"
 
+echo LPACK trimmed=!lPack!
+
 :monitor
+echo LABEL MONITOR started
 for /f %%z in ('forfiles /p %gameLocation%\minecraftpe /m global_resource_packs.json /c "cmd /c echo @fdate__@ftime"') do set "modifytime=%%z"
 if defined modtime (
     if !modtime! neq !modifytime! (
@@ -269,22 +313,47 @@ if defined modtime (
 
         echo !YLW!^> Resource packs changed ^(!modifytime!^)!RST!
         set "modtime=!modifytime!"
+        echo calling parsePackWithCache from NEXT
+        pause
         call "modules\parsePackWithCache"
+        echo ended parsePack from NEXT
+
+        echo PACKUUID=!packUuid!
+
         if !packUuid! equ null (
             echo.
             echo !RED![^^!] No pack is enabled, restoring to default...!RST!
 
+            echo calling restoreMaterials from next
+            pause
             call "modules\restoreMaterials"
+            echo end restore from next
             goto monitor
         ) else (
+            echo in ELSE of NULL
+            echo PACKPATH=!packPath!
             if not exist "!packPath!\renderer\" (
                 echo !RED![^^!] Not a shader, restoring to default...!RST!
+                echo CPACK=!cPack!
                 set cPack=
+                echo calling restore from else of null
+                pause
                 call "modules\restoreMaterials"
+                echo end restore from else of null
                 ) else (
+                    echo in else of else
+                    echo ISSAME=!isSame!
+                    pause
                     if "!isSame!" equ "true" goto monitor
+
+                    echo calling list from else of else 
+                    pause
                     call "modules\listMaterials"
+                    echo end list from else of else 
+                    echo calling inject from else of else 
+                    pause
                     call "modules\injectMaterials"
+                    echo end inject from else of else 
                     goto monitor
                     )
                 )
@@ -292,6 +361,7 @@ if defined modtime (
     timeout 5 > NUL
     goto monitor
 ) else (
+    echo set modtime for the first time
     set "modtime=!modifytime!"
     goto monitor
 )
