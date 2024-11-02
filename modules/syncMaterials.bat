@@ -5,7 +5,7 @@ echo.
 
 for /f "delims=" %%i in ('jq -r ".[0].pack_id" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "packUuid=%%i"
 
-echo pUUID ^-> !packUuid!
+echo pUUID -^> !packUuid!
 pause
 
 if "!packUuid!" equ "null" (
