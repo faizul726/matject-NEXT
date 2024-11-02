@@ -29,8 +29,11 @@ if exist "tmp\" (
 echo [*] Restoring modified materials from last injection...
 echo BIN2=!BINS2!
 echo RPLC2=!replaceList2!
-    set /p BINS2=< ".settings\.bins.log"
-    set /p replaceList2=< ".settings\.replaceList.log"
+    set /p BINS2=<".settings\.bins.log"
+    set /p replaceList2=<".settings\.replaceList.log"
+
+set REPLACELIST2=!REPLACELIST2:_=%MCLOCATION%\data\renderer\materials\!
+set REPLACELIST2=!REPLACELIST2:-=.material.bin!
 
 echo BIN2REBORN=!BINS2!
 echo RPLC2REBORN=!replaceList2!

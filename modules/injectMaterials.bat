@@ -48,7 +48,7 @@ echo RPLCLIST=!REPLACELIST!
 echo BINNIE=!BINS!
 pause
 
-echo !REPLACELIST! > ".settings\.replaceList.log" && echo !BINS! > ".settings\.bins.log"
+echo !REPLACELIST3!>".settings\.replaceList.log" && echo !BINS!>".settings\.bins.log"
 
 echo DOESHAVESUBRP?=!hasSubpack!
 pause

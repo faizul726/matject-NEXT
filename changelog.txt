@@ -1,3 +1,7 @@
+## v0.2.5 (20241102)
+- Fix replaceList
+- Fix debug info
+
 ## v0.2.4 (20241102)
 - Fix MATERIALS CREATION
 

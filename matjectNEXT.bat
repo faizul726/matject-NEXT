@@ -7,7 +7,7 @@ cls
 
 :: VARIABLES
 cd %~dp0
-set "title=matjectNEXT v0.2.4"
+set "title=matjectNEXT v0.2.5"
 title %title%
 
 set "murgi=khayDhan"

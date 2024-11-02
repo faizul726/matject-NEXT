@@ -16,11 +16,14 @@ call "modules\parsePackVersion"
 echo end ver parser from wcache
 
 echo variable=%packUuid%_%packVer%
+
+set packPath=!%packUuid%_%packVer%!
+
 echo rppath=!packPath!
 
 pause
 
-set packPath=!%packUuid%_%packVer%!
+
 for /f "delims=" %%i in ('jq -r ".header.name" "!%packPath%!\manifest.json"') do set "packName=%%i"
 echo rpname=!packName!
 pause
@@ -29,9 +32,9 @@ for /f "delims=" %%j in ('jq ".[0] | has(\"subpack\")" "%gamelocation%\minecraft
 echo rphassubpack=!hasSubpack!
 pause
 
-if "!hasSubpack!" equ "true" echo calling subpack parser from wcache && pause && call "modules\parseSubpack" && echo end subpack parser from wcache
 echo !WHT!^> First activated pack: !GRN!!packName! v!packVer2!!RST!
 echo !WHT!^> hasSubpack: !GRN!!hasSubpack!!RST!
+if "!hasSubpack!" equ "true" echo calling subpack parser from wcache && pause && call "modules\parseSubpack" && echo end subpack parser from wcache
 echo !WHT!^> Pack path: !GRN!!packPath!!RST!
 
 echo crp=!cpack!

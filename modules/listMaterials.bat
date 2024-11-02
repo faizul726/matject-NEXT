@@ -12,6 +12,7 @@ set SRCCOUNT=
 set SRCLIST=
 set REPLACELIST=
 set BINS=
+set MTBIN=
 
 echo PPATH for copying bins=!packPath!
 echo cd=%cd%
@@ -21,6 +22,7 @@ pause
 
 if not exist "MATERIALS" echo mkdir MATERIALS -,- && mkdir MATERIALS
 copy "!packPath!\renderer\materials\*.bin" "%cd%\MATERIALS\"
+
 if "!hasSubpack!" equ "true" copy "!packPath!\subpacks\!subpackName!\renderer\materials\*.bin" "%cd%\MATERIALS"
 
 set SRCLIST=
@@ -34,12 +36,19 @@ pause
 for %%f in (MATERIALS\*) do (
     set SRCLIST=!SRCLIST!,"%cd%\%%f"
     set "BINS=!BINS!"%%~nxf" "
-    set REPLACELIST=!REPLACELIST!,"%MCLOCATION%\data\renderer\%%f"
+    set "MTBIN=%%~nf"
+    set "MTBIN=!MTBIN:~0,-9!"
+    set "REPLACELIST=!REPLACELIST!,"_!MTBIN!-""
+    set "REPLACELIST3=!REPLACELIST3!,"_!MTBIN!-""
     set /a SRCCOUNT+=1
 )
 
 set "SRCLIST=%SRCLIST:~1%"
 set "REPLACELIST=%REPLACELIST:~1%"
+set "REPLACELIST3=%REPLACELIST3:~1%"
+
+set REPLACELIST=!REPLACELIST:_=%MCLOCATION%\data\renderer\materials\!
+set REPLACELIST=!REPLACELIST:-=.material.bin!
 
 echo SRCLIST=!SRCLIST!
 echo REPLACELIST=!REPLACELIST!

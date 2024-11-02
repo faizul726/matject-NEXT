@@ -71,7 +71,7 @@ echo !currentPack! > ".settings\lastPack.txt"
 goto:EOF
 
 :compare
-echo lastpack not found comparing
+echo lastpack found comparing
 echo cpack !currentPack!
 pause
 set "currentPack2=%currentPack: =%"
