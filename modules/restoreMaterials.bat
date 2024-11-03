@@ -7,7 +7,7 @@ if defined debugMode pause
 
 if not exist ".settings\.bins.log" (
     echo !YLW![*] Already using vanilla materials, no need to restore.!RST!
-    pause
+    if defined debugMode pause
     goto:EOF
 )
 
@@ -70,7 +70,7 @@ echo.
 :restore2
 
 if defined debugMode echo "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker" /advanced /move !SRCLIST2! "!MCLOCATION!\data\renderer\materials"
-pause
+if defined debugMode pause
 "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker" /advanced /move !SRCLIST2! "!MCLOCATION!\data\renderer\materials"
 if !errorlevel! neq 0 (
     echo [41;97m[^^!] Please accept UAC.[0m

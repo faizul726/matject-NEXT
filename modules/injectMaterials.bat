@@ -21,7 +21,7 @@ echo.
 if exist %thanksMcbegamerxx954% call "modules\updateMaterials"
 
 echo Yes, task ongoing -,- > ".settings\taskOngoing.txt"
-if exist ".settings\.bins.log" echo FOUND .BINS && echo calling rstrmats from inject && pause && call "modules\restoreMaterials" && echo end rstrmats from inject
+if exist ".settings\.bins.log" if defined debugMode echo FOUND .BINS && if defined debugMode echo calling rstrmats from inject && pause && call "modules\restoreMaterials" && if defined debugMode echo end rstrmats from inject
 
 echo !YLW![*] Deleting materials to replace...!RST!
 

@@ -147,5 +147,5 @@ goto settings
 goto:EOF
 
 :toggle11
-if not exist ".settings\debugMode.txt" (echo You are now a developer^^! [%date% - %time%]>".settings\debugMode.txt") else (del /q /s ".settings\debugMode.txt" > NUL)
+if not exist ".settings\debugMode.txt" (echo You are now a developer^^! [%date% - %time%]>".settings\debugMode.txt" && set debugMode=1) else (del /q /s ".settings\debugMode.txt" > NUL && set debugMode=)
 goto settings

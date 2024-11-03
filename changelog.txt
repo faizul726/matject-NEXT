@@ -1,3 +1,6 @@
+## v0.2.9
+- Hide more debug info, ADDING DEBUG INFO WAS A HUGE MISTAKE
+
 ## v0.2.8
 - Fix debug info again
 
