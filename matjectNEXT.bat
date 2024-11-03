@@ -7,7 +7,7 @@ cls
 
 :: VARIABLES
 cd %~dp0
-set "title=matjectNEXT v0.2.7"
+set "title=matjectNEXT v0.2.8"
 title %title%
 
 set "murgi=khayDhan"
@@ -298,43 +298,43 @@ echo.
 
 for /f "delims=" %%i in ('jq -r ".[0].pack_id" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "packUuid=%%i"
 
-echo PACKUUID !packUuid!
+if defined debugMode echo PACKUUID !packUuid!
 
 if "!packUuid!" equ "null" (
-    echo uuid NULL
+    if defined debugMode echo uuid NULL
     set "lPack=rwxrw-r--"
     goto monitor
 )
 
-echo lPack=!lPack!
+if defined debugMode echo lPack=!lPack!
 
 for /f "delims=" %%a in ('jq -cr ".[0].version | join(\"\")" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set packVer=%%a
 
-echo PACKVER=!packVer!
+if defined debugMode echo PACKVER=!packVer!
 
 for /f "delims=" %%j in ('jq ".[0] | has(\"subpack\")" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "hasSubpack=%%j"
 
-echo hasSubpack=!hasSubpack!
+if defined debugMode echo hasSubpack=!hasSubpack!
 if "!hasSubpack!" equ "true" for /f "delims=" %%i in ('jq -r ".[0].subpack" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "subpackName=%%i"
 
-echo SUBPACKNAME=!subpackName!
+if defined debugMode echo SUBPACKNAME=!subpackName!
 
 if "!hasSubpack!" equ "true" (
-    echo IF
+    if defined debugMode echo IF
     set "lPack=!packName!_!packVer!_!subpackName!"
 ) else (
-    echo ELSE
+    if defined debugMode echo ELSE
     set "lPack=!packName!_!packVer!"
 )
 
-echo LPACK=!lpack!
+if defined debugMode echo LPACK=!lpack!
 
 set "lPack=%lPack: =%"
 
-echo LPACK trimmed=!lPack!
+if defined debugMode echo LPACK trimmed=!lPack!
 
 :monitor
-echo LABEL MONITOR started
+if defined debugMode echo LABEL MONITOR started
 for /f %%z in ('forfiles /p %gameLocation%\minecraftpe /m global_resource_packs.json /c "cmd /c echo @fdate__@ftime"') do set "modifytime=%%z"
 if defined modtime (
     if !modtime! neq !modifytime! (

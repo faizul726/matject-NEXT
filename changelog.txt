@@ -1,3 +1,6 @@
+## v0.2.8
+- Fix debug info again
+
 ## v0.2.7 (20241103)
 - Quick fix for debug mode
 
