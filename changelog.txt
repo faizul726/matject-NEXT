@@ -1,5 +1,5 @@
-## v0.3.0 (20241103)
-- Fix subpack parser again (no longer retains old subpack name)
+## v0.3.1 (20241103)
+- Fix subpack parser once once again
 - Fix restore variable (REPLACELIST3)
 
 ## v0.3.0 (20241103)
