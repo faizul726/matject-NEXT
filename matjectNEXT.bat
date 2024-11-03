@@ -7,7 +7,7 @@ cls
 
 :: VARIABLES
 cd %~dp0
-set "title=matjectNEXT v0.2.9"
+set "title=matjectNEXT v0.3.0"
 title %title%
 
 set "murgi=khayDhan"
@@ -111,10 +111,12 @@ if "!firstRun!" neq "yes" (
 :loadModules
 
 if not exist "jq.exe" (
+    cls
     call "modules\getJQ"
 )
 
 if not exist "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker.exe" (
+    cls
     echo !RED![^^!] You don't have IObit Unlocker installed. Get it from: !CYN!www.iobit.com/en/iobit-unlocker.php!RST!
     echo Press any key to exit... && pause > NUL && exit
 )
@@ -315,7 +317,7 @@ if defined debugMode echo PACKVER=!packVer!
 for /f "delims=" %%j in ('jq ".[0] | has(\"subpack\")" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "hasSubpack=%%j"
 
 if defined debugMode echo hasSubpack=!hasSubpack!
-if "!hasSubpack!" equ "true" for /f "delims=" %%i in ('jq -r ".[0].subpack" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "subpackName=%%i"
+if "!hasSubpack!" equ "true" (for /f "delims=" %%i in ('jq -r ".[0].subpack" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "subpackName=%%i") else (set "subpackName=")
 
 if defined debugMode echo SUBPACKNAME=!subpackName!
 
@@ -353,7 +355,7 @@ if defined modtime (
         if !packUuid! equ null (
             echo.
             echo !RED![^^!] No pack is enabled, restoring to default...!RST!
-
+            if exist ".settings\lastPack.txt" (del /q /s ".settings\lastPack.txt" > NUL)
             if defined debugMode echo calling restoreMaterials from next
             if defined debugMode pause
             call "modules\restoreMaterials"
@@ -364,6 +366,7 @@ if defined modtime (
             if defined debugMode echo PACKPATH=!packPath!
             if not exist "!packPath!\renderer\" (
                 echo !RED![^^!] Not a shader, restoring to default...!RST!
+                if exist ".settings\lastPack.txt" (del /q /s ".settings\lastPack.txt" > NUL)
                 if defined debugMode echo CPACK=!cPack!
                 set cPack=
                 if defined debugMode echo calling restore from else of null

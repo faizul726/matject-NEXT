@@ -23,7 +23,7 @@ goto:EOF
 
 :restorevanilla
 call "modules\restoreMaterials"
-del /q /s ".settings\lastPack.txt" > NUL
+if exist ".settings\lastPack.txt" (del /q /s ".settings\lastPack.txt" > NUL)
 goto:EOF
 
 :version
@@ -73,7 +73,7 @@ goto:EOF
 :compare
 if defined debugMode echo lastpack found comparing
 if defined debugMode echo cpack !currentPack!
-pause
+if defined debugMode pause
 set "currentPack2=%currentPack: =%"
 if defined debugMode echo cpack2 !currentPack2!
 if defined debugMode pause

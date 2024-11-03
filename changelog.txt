@@ -1,7 +1,11 @@
-## v0.2.9
+## v0.3.0 (20241103)
+- Fix subpack parser retaining old subpack name
+- Add some details for title text
+
+## v0.2.9 (20241103)
 - Hide more debug info, ADDING DEBUG INFO WAS A HUGE MISTAKE
 
-## v0.2.8
+## v0.2.8 (20241103)
 - Fix debug info again
 
 ## v0.2.7 (20241103)

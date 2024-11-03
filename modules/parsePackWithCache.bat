@@ -34,7 +34,11 @@ if defined debugMode pause
 
 echo !WHT!^> First activated pack: !GRN!!packName! v!packVer2!!RST!
 echo !WHT!^> hasSubpack: !GRN!!hasSubpack!!RST!
-if "!hasSubpack!" equ "true" if defined debugMode echo calling subpack parser from wcache && pause && call "modules\parseSubpack" && if defined debugMode echo end subpack parser from wcache
+if "!hasSubpack!" equ "true" (
+    if defined debugMode (echo calling subpack parser from wcache) && pause
+    call "modules\parseSubpack"
+    if defined debugMode (echo end subpack parser from wcache)
+)
 echo !WHT!^> Pack path: !GRN!!packPath!!RST!
 
 if defined debugMode echo crp=!cpack!

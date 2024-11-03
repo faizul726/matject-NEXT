@@ -1,6 +1,8 @@
 @echo off
 if not defined murgi echo [41;97mYou can't open me directly[0m :P & cmd /k
 
+title %title% (caching packs)
+
 echo !YLW![*] Caching resource packs...!RST!
 echo.
 for /d %%D in ("%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\resource_packs\*") do (
@@ -20,6 +22,7 @@ for /d %%D in ("%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\Loc
         )
     )
 )
+title %title%
 echo.
 echo !GRN![*] Caching OK!RST!
 echo.
