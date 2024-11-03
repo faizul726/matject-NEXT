@@ -1,7 +1,7 @@
 @echo off
 if not defined murgi echo [41;97mYou can't open me directly[0m :P & cmd /k
 
-set "toggleOff=[ ]"
+set "toggleOff=!GRY![ ]!RST!"
 set "toggleOn=!GRN![x]!RST!"
 
 :settings
@@ -20,6 +20,8 @@ if exist %disableInjectionPrompt% (set toggle3=!toggleOn!) else (set toggle3=!to
 if exist %disableInterruptionCheck% (set toggle4=!toggleOn!) else (set toggle4=!toggleOff!)
 if exist %useAutoAlways% (set toggle5=!toggleOn!) else (set toggle5=!toggleOff!)
 if exist %useManualAlways% (set toggle6=!toggleOn!) else (set toggle6=!toggleOff!)
+if exist %customMinecraftPath% (set toggle7=1) else (set "toggle7=")
+if exist ".settings\debugMode" (set toggle10=!RED![ON]!RST!) else (set toggle10=!GRN![OFF]!RST!)
 
 
 echo ^< [B] Back
@@ -37,14 +39,22 @@ echo !toggle4! 4. Disable interruption check
 echo !toggle5! 5. Use auto mode always
 echo !toggle6! 6. Use manual mode always
 echo.
-echo !toggleOff! 7. Use custom Minecraft app path (WIP)
+
+if not defined toggle7 (
+    echo !toggleOff! 7. Use custom Minecraft app path ^(makes Matject start faster^) 
+) else (
+    echo !toggleOn! 7. Use custom Minecraft app path
+)
+
 echo !toggleOff! 8. Use custom Minecraft data path (WIP)
 echo !toggleOff! 9. Use custom IObit Unlocker path (WIP)
+echo.
+echo !GRY![D] DEBUG MODE ^(shows extra info^) !toggle10!!RST!
 echo.
 echo.
 echo !YLW!Press corresponding key to toggle desired option.!RST!
 echo.
-choice /c 123456789b /n
+choice /c 123456789bd /n
 
 goto toggle!errorlevel!
 
@@ -81,9 +91,61 @@ if not exist %useManualAlways% (
 goto settings
 
 :toggle7
+if defined toggle7 (
+    del /q /s %customMinecraftPath% > NUL
+    goto settings
+)
+cls
+set setCustomMinecraftPath=
+echo ^< [B] Back
+echo.
+echo.
+
+echo !YLW![?] How would you like to set custom Minecraft path?!RST!
+echo.
+echo.
+
+echo [1] Use retrieved Minecraft path ^(!GRN!!MCLOCATION!!RST!!^)
+echo [2] Use user provided Minecraft path
+echo.
+choice /c b12 /n
+
+if !errorlevel! equ 1 goto settings
+
+if !errorlevel! equ 2 (
+    echo !MCLOCATION!>%customMinecraftPath%
+    goto settings
+)
+if !errorlevel! equ 3 (
+    cls
+    set /p "setCustomMinecraftPath=!YLW![*] Type your custom Minecraft path ^(make sure not to include unnecessary space. Leave blank to cancel^):!RST! "
+    echo.
+    if not defined setCustomMinecraftPath (
+        goto settings
+    ) else (
+        echo !setCustomMinecraftPath!
+        pause
+        if exist "!setCustomMinecraftPath!\AppxManifest.xml" (
+            if exist "!setCustomMinecraftPath!\Minecraft.Windows.exe" (
+                echo !setCustomMinecraftPath!>%customMinecraftPath%
+                goto settings
+            )
+        )
+    )
+)
+echo !ERR![^^!] Invalid Minecraft path.!RST!
+echo.
+echo Press any key to go back...
+pause > NUL
+goto settings
+
 :toggle8
 :toggle9
 goto settings
 
 :toggle10
 goto:EOF
+
+:toggle11
+if not exist ".settings\debugMode" (echo.> ".settings\debugMode") else (del /q /s ".settings\debugMode" > NUL)
+goto settings

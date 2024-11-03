@@ -7,7 +7,7 @@ cls
 
 :: VARIABLES
 cd %~dp0
-set "title=matjectNEXT v0.2.5"
+set "title=matjectNEXT v0.2.6"
 title %title%
 
 set "murgi=khayDhan"
@@ -23,6 +23,7 @@ set disableInjectionPrompt=".settings\disableInjectionPrompt"
 set disableInterruptionCheck=".settings\disableInterruptionCheck"
 set useAutoAlways=".settings\useAutoAlways"
 set useManualAlways=".settings\useManualAlways"
+set customMinecraftPath=".settings\customMinecraftPath.txt"
 
 
 
@@ -58,7 +59,7 @@ if exist %disableModuleVerification% (
     echo.
 )
 
-
+if exist ".settings\debug.txt" set "debugMode=1"
 
 :: LOAD COLORS MODULE
 call "modules\colors"
@@ -108,13 +109,42 @@ if "!firstRun!" neq "yes" (
 
 :: LOAD OTHER MODULES
 :loadModules
-call "modules\getMinecraftLocation"
+
+if not exist "jq.exe" (
+    call "modules\getJQ"
+)
+
+if not exist "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker.exe" (
+    echo !RED![^^!] You don't have IObit Unlocker installed. Get it from: !CYN!www.iobit.com/en/iobit-unlocker.php!RST!
+    echo Press any key to exit... && pause > NUL && exit
+)
+
+
+
+if exist %customMinecraftPath% (
+    set /p MCLOCATION=<%customMinecraftPath%
+    echo !YLW![*] Using custom Minecraft path: "!MCLOCATION!"
+    echo.
+    if not exist "!MCLOCATION!\AppxManifest.xml" (
+        echo !ERR![^^!] Custom Minecraft path doesn't exist.!RST!
+        echo.
+
+        call "modules\getMinecraftLocation"
+        echo.
+
+        echo !GRN!TIP: You may disable custom Minecraft path in settings to remove this error.!RST!
+        echo.
+    )
+) else (
+    call "modules\getMinecraftLocation"
+)
+
 if not exist "materials.bak\" (
     call "modules\backupMaterials"
 )
 call "modules\cachePacks"
 
-timeout 2
+timeout 2 > NUL
 
 cls
 
@@ -132,15 +162,15 @@ if not exist %disableInterruptionCheck% (
 )
 
 if not exist "%gameLocation%\minecraftpe\global_resource_packs.json" (
-    echo !ERR!global_resource_packs.json not found.!RST!
+    echo !ERR![^^!] global_resource_packs.json not found.!RST!
     echo [] > "%gameLocation%\minecraftpe\global_resource_packs.json"
 )
 
-echo calling syncMaterials
-pause
+if defined debugMode echo calling syncMaterials
+if defined debugMode pause
 call "modules\syncMaterials"
-echo end syncMaterials
-pause
+if defined debugMode echo end syncMaterials
+if defined debugMode pause
 
 if exist %useAutoAlways% (
     set mode=1
@@ -173,8 +203,8 @@ goto option-!mode!
 
 :: HOMEPAGE
 :start
-echo LABEL START 
-pause
+if defined debugMode echo LABEL START 
+if defined debugMode pause
 cls
 echo !WHT!Welcome to %title%^^!!RST!
 echo.
@@ -196,37 +226,37 @@ echo.
 
 choice /c 12hsab /n
 
-echo going option-!errorlevel!
+if defined debugMode echo going option-!errorlevel!
 goto option-!errorlevel!
 
 
 
 :: EXIT
 :option-6
-echo pause
-pause
+if defined debugMode echo pause
+if defined debugMode pause
 exit
 
 
 
 :: ABOUT
 :option-5
-echo calling about
-pause
+if defined debugMode echo calling about
+if defined debugMode pause
 call "modules\about"
-echo end about
-pause
+if defined debugMode echo end about
+if defined debugMode pause
 goto start
 
 
 
 :: SETTINGS
 :option-4
-echo calling settings
-pause
+if defined debugMode echo calling settings
+if defined debugMode pause
 call "modules\settings"
-echo end settings
-pause
+if defined debugMode echo end settings
+if defined debugMode pause
 title %title%
 goto start
 
@@ -234,8 +264,8 @@ goto start
 
 :: HELP
 :option-3
-echo calling help
-pause
+if defined debugMode echo calling help
+if defined debugMode pause
 call "modules\help"
 goto start
 
@@ -247,7 +277,7 @@ cls
 echo !YLW!BOO^^! This is still work in progress!RST!
 echo.
 
-echo !YLW!Press any key to go back...
+echo !YLW!Press any key to go back...!RST!
 pause > NUL
 goto start
 
@@ -313,47 +343,47 @@ if defined modtime (
 
         echo !YLW!^> Resource packs changed ^(!modifytime!^)!RST!
         set "modtime=!modifytime!"
-        echo calling parsePackWithCache from NEXT
-        pause
+        if defined debugMode echo calling parsePackWithCache from NEXT
+        if defined debugMode pause
         call "modules\parsePackWithCache"
-        echo ended parsePack from NEXT
+        if defined debugMode echo ended parsePack from NEXT
 
-        echo PACKUUID=!packUuid!
+        if defined debugMode echo PACKUUID=!packUuid!
 
         if !packUuid! equ null (
             echo.
             echo !RED![^^!] No pack is enabled, restoring to default...!RST!
 
-            echo calling restoreMaterials from next
-            pause
+            if defined debugMode echo calling restoreMaterials from next
+            if defined debugMode pause
             call "modules\restoreMaterials"
-            echo end restore from next
+            if defined debugMode echo end restore from next
             goto monitor
         ) else (
-            echo in ELSE of NULL
-            echo PACKPATH=!packPath!
+            if defined debugMode echo in ELSE of NULL
+            if defined debugMode echo PACKPATH=!packPath!
             if not exist "!packPath!\renderer\" (
                 echo !RED![^^!] Not a shader, restoring to default...!RST!
-                echo CPACK=!cPack!
+                if defined debugMode echo CPACK=!cPack!
                 set cPack=
-                echo calling restore from else of null
-                pause
+                if defined debugMode echo calling restore from else of null
+                if defined debugMode pause
                 call "modules\restoreMaterials"
-                echo end restore from else of null
+                if defined debugMode echo end restore from else of null
                 ) else (
-                    echo in else of else
-                    echo ISSAME=!isSame!
-                    pause
+                    if defined debugMode echo in else of else
+                    if defined debugMode echo ISSAME=!isSame!
+                    if defined debugMode pause
                     if "!isSame!" equ "true" goto monitor
 
-                    echo calling list from else of else 
-                    pause
+                    if defined debugMode echo calling list from else of else 
+                    if defined debugMode pause
                     call "modules\listMaterials"
-                    echo end list from else of else 
-                    echo calling inject from else of else 
-                    pause
+                    if defined debugMode echo end list from else of else 
+                    if defined debugMode echo calling inject from else of else 
+                    if defined debugMode pause
                     call "modules\injectMaterials"
-                    echo end inject from else of else 
+                    if defined debugMode echo end inject from else of else 
                     goto monitor
                     )
                 )
@@ -361,7 +391,7 @@ if defined modtime (
     timeout 5 > NUL
     goto monitor
 ) else (
-    echo set modtime for the first time
+    if defined debugMode echo set modtime for the first time
     set "modtime=!modifytime!"
     goto monitor
 )

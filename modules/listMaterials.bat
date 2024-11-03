@@ -1,12 +1,12 @@
 @echo off
 if not defined murgi echo [41;97mYou can't open me directly[0m :P & cmd /k
 
-echo listing materials
-pause
+if defined debugMode echo listing materials
+if defined debugMode pause
 
 :list
 
-echo srccount=!SRCCOUNT!, srclist=!SRCLIST!, replacelist=!REPLACELIST!, bins=!BINS!
+if defined debugMode echo srccount=!SRCCOUNT!, srclist=!SRCLIST!, replacelist=!REPLACELIST!, bins=!BINS!
 
 set SRCCOUNT=
 set SRCLIST=
@@ -14,10 +14,10 @@ set REPLACELIST=
 set BINS=
 set MTBIN=
 
-echo PPATH for copying bins=!packPath!
-echo cd=%cd%
-echo hasSubRP???=!hasSubpack!
-pause
+if defined debugMode echo PPATH for copying bins=!packPath!
+if defined debugMode echo cd=%cd%
+if defined debugMode echo hasSubRP???=!hasSubpack!
+if defined debugMode pause
 
 
 if not exist "MATERIALS" echo mkdir MATERIALS -,- && mkdir MATERIALS
@@ -30,8 +30,8 @@ set REPLACELIST=
 set BINS=
 set SRCCOUNT=
 
-echo TWICE -^> srccount=!SRCCOUNT!, srclist=!SRCLIST!, replacelist=!REPLACELIST!, bins=!BINS!
-pause 
+if defined debugMode echo TWICE -^> srccount=!SRCCOUNT!, srclist=!SRCLIST!, replacelist=!REPLACELIST!, bins=!BINS!
+if defined debugMode pause 
 
 for %%f in (MATERIALS\*) do (
     set SRCLIST=!SRCLIST!,"%cd%\%%f"
@@ -50,8 +50,8 @@ set "REPLACELIST3=%REPLACELIST3:~1%"
 set REPLACELIST=!REPLACELIST:_=%MCLOCATION%\data\renderer\materials\!
 set REPLACELIST=!REPLACELIST:-=.material.bin!
 
-echo SRCLIST=!SRCLIST!
-echo REPLACELIST=!REPLACELIST!
-pause
+if defined debugMode echo SRCLIST=!SRCLIST!
+if defined debugMode echo REPLACELIST=!REPLACELIST!
+if defined debugMode pause
 
 goto:EOF

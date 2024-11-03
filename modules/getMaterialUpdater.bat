@@ -38,18 +38,18 @@ cls
 echo [*] You can take a look from line 36 of getMaterialUpdater.bat if you want to know how it actually downloads...
 echo.
 
-echo !YLW![*] If you're fine with that you can press [Y] to download. or [B] to go back!RST!
+echo !YLW![*] If you're fine with that you can press [Y] to download or [B] to go back.!RST!
 echo.
 choice /c yb /n
 if !errorlevel! neq 1 goto:EOF
 echo.
 
 if not exist "tmp\" mkdir tmp
-echo !YLW![*] Downloading...
+echo !YLW![*] Downloading...!RST!
 powershell -Command "Invoke-WebRequest https://github.com/mcbegamerxx954/material-updater/releases/latest/download/material-updater-x86_64-pc-windows-msvc.zip -OutFile tmp/material-updater-x86_64-pc-windows-msvc.zip ; Expand-Archive -Force tmp/material-updater-x86_64-pc-windows-msvc.zip 'modules'" && if not exist %thanksMcbegamerxx954% (echo. > %thanksMcbegamerxx954%)
 rmdir tmp /q /s
 echo.
-echo !GRN![*] Downloaded!RST!
+if exist "modules\material-updater.exe" (echo !GRN![*] Downloaded!RST!) else (echo !RED![*] Download FAILED!RST! && echo Press any key to go back... && pause > NUL && goto:EOF)
 echo.
 pause && goto:EOF
 
@@ -67,8 +67,9 @@ echo.
 
 echo !YLW![*] When done, press any key to continue....!RST!
 pause > NUL
+echo.
 
-if not exist "modules\material-updater.exe" (echo. && echo !RED![^^!] material-updater.exe not found.!RST! && echo. && echo Press any key to go back... && pause > NUL)
+if not exist "modules\material-updater.exe" (echo !RED![^^!] material-updater.exe not found.!RST! && echo. && echo Press any key to go back... && pause > NUL)
 
 
 :option-3

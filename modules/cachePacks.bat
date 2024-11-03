@@ -12,9 +12,9 @@ for /d %%D in ("%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\Loc
                     set /a counter+=1
                     set "%%j_%%k=%%D"
                     echo !counter!. !packName!
-                    echo %%j_%%k
-                    echo !GRN!!%%j_%%k!!RST!
-                    echo.
+                    if defined debugMode echo %%j_%%k
+                    if defined debugMode echo !GRN!!%%j_%%k!!RST!
+                    if defined debugMode echo.
                 )
             )
         )
@@ -25,4 +25,4 @@ echo !GRN![*] Caching OK!RST!
 echo.
 echo.
 
-pause
+if defined debugMode pause

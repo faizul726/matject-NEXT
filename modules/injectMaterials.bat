@@ -1,7 +1,7 @@
 @echo off
 if not defined murgi echo [41;97mYou can't open me directly[0m :P & cmd /k
 
-echo START INJECTING MATS
+if defined debugMode echo START INJECTING MATS
 
 echo !GRN![*] Found !SRCCOUNT! material(s) in the "MATERIALS" folder.!RST!
 echo.
@@ -11,7 +11,7 @@ msg * Resource packs changed, injecting new materials...
 echo !YLW![*] Press [Y] to confirm injection or [B] to cancel.!RST!
 echo.
 choice /c yb /N
-echo ERRLVL=!errorlevel!
+if defined debugMode echo ERRLVL=!errorlevel!
 if !errorlevel! neq 1 goto:EOF
 
 :inject
@@ -26,7 +26,7 @@ if exist ".settings\.bins.log" echo FOUND .BINS && echo calling rstrmats from in
 echo !YLW![*] Deleting materials to replace...!RST!
 
 echo.
-echo "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker" /advanced /delete !REPLACELIST!
+if defined debugMode echo "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker" /advanced /delete !REPLACELIST!
 echo.
 
 "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker" /advanced /delete !REPLACELIST!
@@ -36,7 +36,7 @@ echo.
 echo !YLW![*] Replacing materials...!RST!
 
 echo.
-echo "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker" /advanced /move !SRCLIST! "!MCLOCATION!\data\renderer\materials"
+if defined debugMode echo "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker" /advanced /move !SRCLIST! "!MCLOCATION!\data\renderer\materials"
 echo.
 
 "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker" /advanced /move !SRCLIST! "!MCLOCATION!\data\renderer\materials"
@@ -44,14 +44,14 @@ echo.
 echo !GRN![*] Succeed.!RST!
 
 
-echo RPLCLIST=!REPLACELIST!
-echo BINNIE=!BINS!
-pause
+if defined debugMode echo RPLCLIST=!REPLACELIST!
+if defined debugMode echo BINNIE=!BINS!
+if defined debugMode pause
 
 echo !REPLACELIST3!>".settings\.replaceList.log" && echo !BINS!>".settings\.bins.log"
 
-echo DOESHAVESUBRP?=!hasSubpack!
-pause
+if defined debugMode echo DOESHAVESUBRP?=!hasSubpack!
+if defined debugMode pause
 
 if "!hasSubpack!" equ "true" (
     echo !packName!_!packVer!_!subpackName! > ".settings\lastPack.txt"
@@ -59,17 +59,17 @@ if "!hasSubpack!" equ "true" (
     echo !packName!_!packVer! > ".settings\lastPack.txt"
 )
 
-echo COMBINED=!packName!_!packVer!_!subpackName!
+if defined debugMode echo COMBINED=!packName!_!packVer!_!subpackName!
 
 
 del /q /s ".settings\taskOngoing.txt" > NUL
 
-echo chiken=!cpack!
+if defined debugMode echo chiken=!cpack!
 
 if defined cPack (
     set "lPack=!cPack!"
 )
 
-echo chikenReborn=!cpack!
+if defined debugMode echo chikenReborn=!cpack!
 
 goto:EOF

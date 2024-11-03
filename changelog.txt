@@ -1,3 +1,11 @@
+## v0.2.6 (20241103)
+- Debug info is now an optional feature (will be removed once it becomes stable)
+- Now the custom Minecraft app path option is usable
+- Added JQ download prompt and downloader (both 32 and 64 bit supported, although haven't tested on 32 bit device yet)
+- Added IObit Unlocker prompt
+- Some typos
+- And other things that I don't remember, just check commits bruh
+
 ## v0.2.5 (20241102)
 - Fix replaceList
 - Fix debug info
