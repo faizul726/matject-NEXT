@@ -6,11 +6,12 @@ if defined debugMode pause
 
 :list
 
-if defined debugMode echo srccount=!SRCCOUNT!, srclist=!SRCLIST!, replacelist=!REPLACELIST!, bins=!BINS!
+if defined debugMode echo srccount=!SRCCOUNT!, srclist=!SRCLIST!, replacelist=!REPLACELIST!, bins=!BINS!, replacelist3=!REPLACELIST3!
 
 set SRCCOUNT=
 set SRCLIST=
 set REPLACELIST=
+set REPLACELIST3=
 set BINS=
 set MTBIN=
 
@@ -27,6 +28,7 @@ if "!hasSubpack!" equ "true" copy "!packPath!\subpacks\!subpackName!\renderer\ma
 
 set SRCLIST=
 set REPLACELIST=
+set REPLACELIST3=
 set BINS=
 set SRCCOUNT=
 
@@ -52,6 +54,7 @@ set REPLACELIST=!REPLACELIST:-=.material.bin!
 
 if defined debugMode echo SRCLIST=!SRCLIST!
 if defined debugMode echo REPLACELIST=!REPLACELIST!
+if defined debugMode echo REPLACELIST=!REPLACELIST3!
 if defined debugMode pause
 
 goto:EOF

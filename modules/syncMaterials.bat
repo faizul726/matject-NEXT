@@ -36,7 +36,7 @@ if defined debugMode pause
 for /f "delims=" %%j in ('jq ".[0] | has(\"subpack\")" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "hasSubpack=%%j"
 if defined debugMode echo 3. hasSubpack? !hasSubpack!
 if defined debugMode pause
-if "!hasSubpack!" equ "true" for /f "delims=" %%i in ('jq -r ".[0].subpack" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "subpackName=%%i"
+if "!hasSubpack!" equ "true" (for /f "delims=" %%i in ('jq -r ".[0].subpack" "%gamelocation%\minecraftpe\global_resource_packs.json"') do set "subpackName=%%i") else (set "subpackName=")
 if defined debugMode echo 4. subpackName? !subpackName!
 if defined debugMode pause
 

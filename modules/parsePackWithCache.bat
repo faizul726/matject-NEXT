@@ -38,6 +38,8 @@ if "!hasSubpack!" equ "true" (
     if defined debugMode (echo calling subpack parser from wcache) && pause
     call "modules\parseSubpack"
     if defined debugMode (echo end subpack parser from wcache)
+) else (
+    set "subpackName="
 )
 echo !WHT!^> Pack path: !GRN!!packPath!!RST!
 

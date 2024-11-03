@@ -51,6 +51,7 @@ echo !GRN![*] Succeed.!RST!
 
 
 if defined debugMode echo RPLCLIST=!REPLACELIST!
+if defined debugMode echo RPLC3LIST=!REPLACELIST3!
 if defined debugMode echo BINNIE=!BINS!
 if defined debugMode pause
 
