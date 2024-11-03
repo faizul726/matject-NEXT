@@ -7,7 +7,7 @@ cls
 
 :: VARIABLES
 cd %~dp0
-set "title=matjectNEXT v0.2.6"
+set "title=matjectNEXT v0.2.7"
 title %title%
 
 set "murgi=khayDhan"
@@ -59,7 +59,7 @@ if exist %disableModuleVerification% (
     echo.
 )
 
-if exist ".settings\debug.txt" set "debugMode=1"
+if exist ".settings\debugMode.txt" set "debugMode=1"
 
 :: LOAD COLORS MODULE
 call "modules\colors"

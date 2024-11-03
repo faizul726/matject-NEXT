@@ -1,3 +1,6 @@
+## v0.2.7 (20241103)
+- Quick fix for debug mode
+
 ## v0.2.6 (20241103)
 - Debug info is now an optional feature (will be removed once it becomes stable)
 - Now the custom Minecraft app path option is usable

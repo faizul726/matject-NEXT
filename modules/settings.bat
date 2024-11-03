@@ -21,7 +21,7 @@ if exist %disableInterruptionCheck% (set toggle4=!toggleOn!) else (set toggle4=!
 if exist %useAutoAlways% (set toggle5=!toggleOn!) else (set toggle5=!toggleOff!)
 if exist %useManualAlways% (set toggle6=!toggleOn!) else (set toggle6=!toggleOff!)
 if exist %customMinecraftPath% (set toggle7=1) else (set "toggle7=")
-if exist ".settings\debugMode" (set toggle10=!RED![ON]!RST!) else (set toggle10=!GRN![OFF]!RST!)
+if exist ".settings\debugMode.txt" (set toggle10=!RED![ON]!RST!) else (set toggle10=!GRN![OFF]!RST!)
 
 
 echo ^< [B] Back
@@ -147,5 +147,5 @@ goto settings
 goto:EOF
 
 :toggle11
-if not exist ".settings\debugMode" (echo.> ".settings\debugMode") else (del /q /s ".settings\debugMode" > NUL)
+if not exist ".settings\debugMode.txt" (echo You are now a developer^^! [%date% - %time%]>".settings\debugMode.txt") else (del /q /s ".settings\debugMode.txt" > NUL)
 goto settings
