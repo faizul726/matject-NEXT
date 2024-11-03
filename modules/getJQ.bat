@@ -46,7 +46,8 @@ pause && goto:EOF
 
 :option-2
 cls
-echo [^^!] Make sure to download !CYN!!RST! and extract !CYN!material-updater.exe!RST! to !CYN!modules!RST! folder.
+echo !RED![^^!] Make sure to download matching your architecture. ^(AMD64 = 64 bit, i386 = 32 bit^)!RST!
+echo     !RED!Place it in "!WHT!%cd%!RED!" named as !YLW!jq.exe!RST!
 echo.
 
 echo [*] Click any key to open !CYN!jqlang.github.io/jq/download!RST! in browser.
