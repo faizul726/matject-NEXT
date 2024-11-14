@@ -7,7 +7,7 @@ cls
 
 :: VARIABLES
 cd %~dp0
-set "title=matjectNEXT v0.3.1"
+set "title=matjectNEXT v0.3.2"
 title %title%
 
 set "murgi=khayDhan"
@@ -337,7 +337,7 @@ if defined debugMode echo LPACK trimmed=!lPack!
 
 :monitor
 if defined debugMode echo LABEL MONITOR started
-for /f %%z in ('forfiles /p %gameLocation%\minecraftpe /m global_resource_packs.json /c "cmd /c echo @fdate__@ftime"') do set "modifytime=%%z"
+for /f %%z in ('forfiles /p "%gameLocation%\minecraftpe" /m global_resource_packs.json /c "cmd /c echo @fdate__@ftime"') do set "modifytime=%%z"
 if defined modtime (
     if !modtime! neq !modifytime! (
         set monitoring=

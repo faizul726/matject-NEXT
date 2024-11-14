@@ -1,3 +1,7 @@
+## v0.3.2 (20241114)
+- Fix monitoring for usernames with space
+- Add placeholder for new packs detection
+
 ## v0.3.1 (20241103)
 - Fix subpack parser once once again
 - Fix restore variable (REPLACELIST3)

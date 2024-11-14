@@ -17,6 +17,14 @@ if defined debugMode echo end ver parser from wcache
 
 if defined debugMode echo variable=%packUuid%_%packVer%
 
+goto skip
+if not defined %packUuid%_%packVer% (
+    :: loop through resource_packs
+    :: or
+    :: call cachePacks again
+)
+:skip
+
 set packPath=!%packUuid%_%packVer%!
 
 if defined debugMode echo rppath=!packPath!
